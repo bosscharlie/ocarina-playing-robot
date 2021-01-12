@@ -1,7 +1,7 @@
 from player import player
 import _thread
 import time
-myplayer=player('COM6','COM7','COM5',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+myplayer=player('COM6','COM8','COM7',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
 
 # myplayer.play_sound('C',1)  #参数为音名及时长
 # myplayer.play_sound('D',1)
@@ -18,19 +18,22 @@ def air_control():
     f = open("littleStar_air.txt","r")
     line = f.readline()
     while(line):
-        # print(line)
+        print(line)
         a = line.split(" ")
-        # time.sleep(float(a[1]))
+        #time.sleep(float(a[1]))
         myplayer.choose_power(int(a[0]),float(a[1]))
+        time.sleep(float(a[1]))
         line = f.readline()
 
 def play_control():
     f = open("littleStar_melody.txt", "r")
     line = f.readline()
     while (line):
-        # print(line)
+        print(line)
         a = line.split(" ")
-        myplayer.play_sound(int(a[0]), float(a[1]))
+        #time.sleep(float(a[1]))
+        myplayer.play_sound(a[0], float(a[1]))
+        time.sleep(float(a[1]))
         line = f.readline()
 
 if __name__ == '__main__':
