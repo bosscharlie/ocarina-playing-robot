@@ -3,4 +3,4 @@ from moviepy.editor import *
 
 video = VideoFileClip('test.mp4')
 audio = video.audio
-audio.write_audiofile('test.mp3')
+audio.write_audiofile('test.wav')
