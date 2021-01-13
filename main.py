@@ -30,7 +30,7 @@ def play_control():
     while (line):
         # print(line)
         a = line.split(" ")
-        myplayer.play_sound(int(a[0]), float(a[1]))
+        myplayer.play_sound(a[0], float(a[1]))
         line = f.readline()
 
 if __name__ == '__main__':
