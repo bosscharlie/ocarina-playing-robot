@@ -1,7 +1,7 @@
 from player import player
 import _thread
 import time
-myplayer=player('COM6','COM7','COM5',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+myplayer=player('COM4','COM5','COM3',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
 
 # myplayer.play_sound('C',1)  #参数为音名及时长
 # myplayer.play_sound('D',1)
