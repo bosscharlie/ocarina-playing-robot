@@ -41,16 +41,29 @@ def difference(data):
         for j in range(0, (int)(len(data)/2)):
             output[i] = output[i] + (data[j % len(data)]-data[(j + i) % len(data)])**2
     return output
+
+#累积均值归一化差函数
+def CMNDF(input):
+    output=np.zeros(len(input),dtype=float)
+    output[0]=1
+    for i in range(1,len(input)):
+        sum=0
+        for j in range(1,i+1):
+            sum=sum+input[j]
+        output[i]=(float)(input[i])/((1/i)*sum)
+    return output
 #进行基频提取
 def sampling():
     now=0
     while(now<librosa.get_duration(filename='afterpre.wav')):
         wave,freq=librosa.load('afterpre.wav',sr=32000,offset=now+60/(bpm*32),duration=60/(bpm*32))  #最小音符时值十六分音符，每个音符采样四次，取第二个采样点
+        diff=difference(wave)
+        cmndf=CMNDF(diff)
         plt.title = ("waveform")
         plt.plot(np.arange(len(wave)),wave, 'b')
         # # plt.plot(np.arange(len(ACF(wave,0))), ACF(wave,0), 'r')
         # # plt.plot(np.arange(len(ACF2(wave,0))), ACF2(wave,0), 'g')
-        plt.plot(np.arange(len(difference(wave))),difference(wave),'r')
+        plt.plot(np.arange(len(cmndf)),cmndf,'r')
         plt.show()
         plt.figure()
         now=now+60/(bpm*8)
