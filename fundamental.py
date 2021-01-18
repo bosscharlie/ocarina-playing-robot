@@ -13,7 +13,7 @@ bpm=90
 s=0.1
 #去掉音频前面无声部分
 def preprocessing():
-    wave,freq=librosa.load('single.wav',sr=32000)
+    wave,freq=librosa.load('source.wav',sr=32000)
     now=0
     while(wave[now]==0):
         now=now+1
@@ -54,17 +54,42 @@ def CMNDF(input):
         output[i]=(float)(input[i])/((1/i)*sum)
     return output
 
-def getperiod(input):
+def getkey(period):
+    if(period>=120 and period<=124):
+        return 'C'
+    elif(period>=106 and period<=110):
+        return 'D'
+    elif(period>=95 and period<=99):
+        return 'E'
+    elif(period>=89 and period<=93):
+        return 'F'
+    elif(period>=79 and period<=83):
+        return 'G'
+    elif(period>=71 and period<=75):
+        return 'A'
+    elif(period>=63 and period<=67):
+        return 'B'
+    elif(period>=59 and period<=62):
+        return 'HC'
+    else:
+        return 'N'
+def getperiod(input,result):
+    for i in range(0,len(input)-1):
+        if (input[i]<input[i+1]) and input[i]<s:
+            result.append(getkey(i))
+            break
 
 #进行基频提取
 def sampling():
     now=0
+    result=[]
     while(now<librosa.get_duration(filename='afterpre.wav')):
         wave,freq=librosa.load('afterpre.wav',sr=32000,offset=now+60/(bpm*16),duration=60/(bpm*16))  #最小音符时值十六分音符，每个音符采样四次，取第二个采样点
         if(len(wave)==0):
             break
         diff=difference(wave)
         cmndf=CMNDF(diff)
+        getperiod(cmndf,result)
         # plt.title = ("waveform")
         # plt.plot(np.arange(len(wave)),wave, 'b')
         # # # plt.plot(np.arange(len(ACF(wave,0))), ACF(wave,0), 'r')
@@ -73,7 +98,8 @@ def sampling():
         # plt.show()
         # plt.figure()
         now=now+60/(bpm*4)
-
+    print(result)
+    return result
 if __name__=='__main__':
     preprocessing()
     sampling()
