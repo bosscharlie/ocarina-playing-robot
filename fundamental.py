@@ -98,7 +98,7 @@ def sampling():
         # plt.show()
         # plt.figure()
         now=now+60/(bpm*4)
-    print(result)
+        print(result)
     return result
 if __name__=='__main__':
     preprocessing()

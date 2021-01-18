@@ -8,3 +8,4 @@ for i in range(0,len(result)):
     if(result[i]=='N'):
         continue
     myplayer.play_sound(result[i],60/(fundamental.bpm*4))
+myplayer.init()
