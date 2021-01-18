@@ -10,6 +10,7 @@ from moviepy.editor import *
 from pydub import AudioSegment
 #基频提取
 bpm=90
+s=0.1
 #去掉音频前面无声部分
 def preprocessing():
     wave,freq=librosa.load('single.wav',sr=32000)
@@ -52,21 +53,26 @@ def CMNDF(input):
             sum=sum+input[j]
         output[i]=(float)(input[i])/((1/i)*sum)
     return output
+
+def getperiod(input):
+
 #进行基频提取
 def sampling():
     now=0
     while(now<librosa.get_duration(filename='afterpre.wav')):
-        wave,freq=librosa.load('afterpre.wav',sr=32000,offset=now+60/(bpm*32),duration=60/(bpm*32))  #最小音符时值十六分音符，每个音符采样四次，取第二个采样点
+        wave,freq=librosa.load('afterpre.wav',sr=32000,offset=now+60/(bpm*16),duration=60/(bpm*16))  #最小音符时值十六分音符，每个音符采样四次，取第二个采样点
+        if(len(wave)==0):
+            break
         diff=difference(wave)
         cmndf=CMNDF(diff)
-        plt.title = ("waveform")
-        plt.plot(np.arange(len(wave)),wave, 'b')
-        # # plt.plot(np.arange(len(ACF(wave,0))), ACF(wave,0), 'r')
-        # # plt.plot(np.arange(len(ACF2(wave,0))), ACF2(wave,0), 'g')
-        plt.plot(np.arange(len(cmndf)),cmndf,'r')
-        plt.show()
-        plt.figure()
-        now=now+60/(bpm*8)
+        # plt.title = ("waveform")
+        # plt.plot(np.arange(len(wave)),wave, 'b')
+        # # # plt.plot(np.arange(len(ACF(wave,0))), ACF(wave,0), 'r')
+        # # # plt.plot(np.arange(len(ACF2(wave,0))), ACF2(wave,0), 'g')
+        # plt.plot(np.arange(len(cmndf)),cmndf,'r')
+        # plt.show()
+        # plt.figure()
+        now=now+60/(bpm*4)
 
 if __name__=='__main__':
     preprocessing()
