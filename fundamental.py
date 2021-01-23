@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import wave
 import soundfile as sf
+import sys
 import os
 import glob
 from moviepy.editor import *
@@ -99,6 +100,9 @@ def sampling():
         # plt.figure()
         now=now+60/(bpm*4)
         print(result)
+    f= open('result.txt','w')
+    f.writelines(result)
+    f.close()
     return result
 if __name__=='__main__':
     preprocessing()
