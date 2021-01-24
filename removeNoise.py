@@ -14,7 +14,7 @@ import noisereduce as nr
 from main import myplayer
 from player import player
 
-Sampling_interval_time = 0.01    #表示力度采样的时间间隔
+Sampling_interval_time = 0.1    #表示力度采样的时间间隔
 standard_value_num = 700
 stand = []
 
@@ -32,21 +32,19 @@ def mean(a):
 
 def air_control(a):
     for i in range(len(a)):
-        if(a[i - 1] == 0 and a[i] !=0):
-            max = 1850 - a[i]
+        if(int(a[i]) == 0):
+            max = 1850 - int(a[i])
             myplayer.set_separate(False)
             # print("cnm")
             # myplayer.choose_power(0, 0.001)
             # myplayer.choose_power(0, 0.001)
             # myplayer.choose_power(0, 0.001)
             # myplayer.choose_power(0, 0.001)
-            if((1850 - a[i]) > 1450):
-                max = 1450
             myplayer.choose_power(max, (Sampling_interval_time) / 2)
             time.sleep(Sampling_interval_time/ 2)
         else:
             myplayer.set_separate(True)
-            myplayer.choose_power(1850 - a[i],(Sampling_interval_time)/2)
+            myplayer.choose_power(1850 - int(a[i]),(Sampling_interval_time)/2)
             time.sleep(Sampling_interval_time/2)
 
 def load_form():
@@ -54,22 +52,25 @@ def load_form():
         line = f.readline()
         while line:
             a = line.split(" ")
-            print(a)
             stand.append(a)
-            if int(a[1]) > 1850:
+            if int(a[1]) > 1840:
                 return
             line = f.readline()
 
 
 def binarySearch(arr, l, r, x):
+    x = abs(x)
     if r >= l:
         mid = int(l + (r - l) / 2)
-        if arr[mid][0] <= x and arr[mid + 1][0] >= x:
-            return mid
-        elif arr[mid][0] > x:
-            return binarySearch(arr, l, mid - 1, x)
-        elif arr[mid + 1][0] < x:
-            return binarySearch(arr, mid + 1, r, x)
+        if mid < 16:
+            if float(arr[mid][0]) <= x and float(arr[mid + 1][0]) >= x:
+                return mid
+            elif float(arr[mid][0]) > x:
+                return binarySearch(arr, l, mid - 1, x)
+            elif float(arr[mid + 1][0]) < x:
+                return binarySearch(arr, mid + 1, r, x)
+        else:
+            return 16
     else:
         return -1
 
@@ -77,7 +78,7 @@ if __name__ == '__main__':
 
     load_form()
     myplayer.play_sound('C', 1)
-    sound_data, sound_rate = sf.read("sound3.wav")
+    sound_data, sound_rate = sf.read("sound2.wav")
     sound_data.shape = -1
     noise_data, noise_rate = sf.read("noise.wav")
     noise_data.shape = -1
@@ -92,21 +93,27 @@ if __name__ == '__main__':
     intensity = []
     valve_num = []
     while now_interval < len(after):
-        # now_interval_intensity = 0
-        # for i in range(int(now_interval - 50 / 2), int(now_interval + 50 / 2)):
-        #     if i >= len(after):
-        #         break
-        #     if (after[i] > now_interval_intensity):
-        #         now_interval_intensity = after[i]
+        now_interval_intensity = 0
+        for i in range(int(now_interval - 1000 / 2), int(now_interval + 1000 / 2)):
+            if i >= len(after):
+                break
+            if (after[i] > now_interval_intensity):
+                now_interval_intensity = after[i]
         # intensity.append(now_interval_intensity)
         # now_interval += Sampling_interval
-        p = binarySearch(stand,0,len(stand),after[now_interval])
+        # print(stand)
+        # print(0)
+        # print(len(stand))
+        # print(after[int(now_interval)])
+        p = binarySearch(stand, 0 ,int(len(stand)-1),float(now_interval_intensity))
         intensity.append(stand[p][1])
+        # print(after[int(now_interval)],"cnm",stand[p][1])
         now_interval += Sampling_interval
     # mean_intensity = mean(intensity)
 
     #myplayer.play_sound('C',1)
-    myplayer.set_separate(True)
+    myplayer.set_separate(False)
+    time.sleep(2)
     try:
         _thread.start_new_thread(air_control, (intensity,))
     except:
