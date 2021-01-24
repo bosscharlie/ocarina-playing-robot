@@ -1,7 +1,7 @@
 from player import player
 import _thread
 import time
-myplayer=player('COM6','COM8','COM7',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
 
 # myplayer.play_sound('C',1)  #参数为音名及时长
 # myplayer.play_sound('D',1)
@@ -37,9 +37,23 @@ def play_control():
         line = f.readline()
 
 if __name__ == '__main__':
+    for i in range(1000):
+        myplayer.set_separate(True)
+        print("true")
+        time.sleep(1)
+        myplayer.set_separate(False)
+        print("false")
+        time.sleep(1)
+    myplayer.set_separate(True)
+    print("true")
+    time.sleep(0.01)
+    myplayer.set_separate(False)
+    print("false")
+    time.sleep(0.01)
     # 创建两个线程
     try:
         _thread.start_new_thread(play_control, ())
+        myplayer.set_separate(True)
         _thread.start_new_thread(air_control, ())
     except:
         print("Error: 无法启动线程")
