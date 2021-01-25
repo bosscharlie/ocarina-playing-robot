@@ -238,7 +238,6 @@ class player:
 
     def play_sound(self,key,t):
         self.choosepose(key)
-        time.sleep((60/self.BPM)*t*1)
 
     def stop(self,t):
-        time.sleep((60/self.BPM)*t)
+        time.sleep(t)

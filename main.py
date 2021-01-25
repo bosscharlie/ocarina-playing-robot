@@ -35,7 +35,7 @@ def play_control():
         # result.append(line)
     for i in range(0,len(result)):
         if(result[i]=='N'):
-            continue
+            myplayer.stop(60/(fundamental.bpm*4))
         myplayer.play_sound(result[i],60/(fundamental.bpm*4))
 
 if __name__ == '__main__':
