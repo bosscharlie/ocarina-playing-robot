@@ -56,29 +56,50 @@ def CMNDF(input):
     return output
 
 def getkey(period):
-    if(period>=120 and period<=124):
+    # if(period>=120 and period<=124): #钢琴
+    #     return 'C'
+    # elif(period>=106 and period<=110):
+    #     return 'D'
+    # elif(period>=95 and period<=99):
+    #     return 'E'
+    # elif(period>=89 and period<=93):
+    #     return 'F'
+    # elif(period>=79 and period<=83):
+    #     return 'G'
+    # elif(period>=71 and period<=75):
+    #     return 'A'
+    # elif(period>=63 and period<=67):
+    #     return 'B'
+    # elif(period>=59 and period<=62):
+    #     return 'HC'
+    # else:
+    #     return 'N'
+    if (period >= 56 and period <= 60):    #陶笛
         return 'C'
-    elif(period>=106 and period<=110):
+    elif (period >= 51 and period <= 55):
         return 'D'
-    elif(period>=95 and period<=99):
+    elif (period >= 47 and period <= 49):
         return 'E'
-    elif(period>=89 and period<=93):
+    elif (period >= 42 and period <= 46):
         return 'F'
-    elif(period>=79 and period<=83):
+    elif (period >= 38 and period <= 41):
         return 'G'
-    elif(period>=71 and period<=75):
+    elif (period >= 35 and period <= 37):
         return 'A'
-    elif(period>=63 and period<=67):
+    elif (period >= 33 and period <= 34 ):
         return 'B'
-    elif(period>=59 and period<=62):
+    elif (period >= 29 and period <= 31):
         return 'HC'
     else:
         return 'N'
 def getperiod(input,result):
     for i in range(0,len(input)-1):
-        if (input[i]<input[i+1]) and input[i]<s:
-            result.append(getkey(i))
-            break
+        if (input[i]<input[i+1]):
+            if input[i]<s:
+                print(i)
+                result.append(getkey(i))
+                return
+    result.append('N')
 
 #进行基频提取
 def sampling():
