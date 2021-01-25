@@ -14,7 +14,7 @@ bpm=90
 s=0.1
 #去掉音频前面无声部分
 def preprocessing():
-    wave,freq=librosa.load('source.wav',sr=32000)
+    wave,freq=librosa.load('sound2.wav',sr=32000)
     now=0
     while(wave[now]==0):
         now=now+1
