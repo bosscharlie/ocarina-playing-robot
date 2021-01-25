@@ -74,7 +74,7 @@ def play_control():
 
 def start():
     load_form()
-    sound_data, sound_rate = sf.read("sound2.wav")
+    sound_data, sound_rate = sf.read("single.wav")
     sound_data.shape = -1
     noise_data, noise_rate = sf.read("noise.wav")
     noise_data.shape = -1

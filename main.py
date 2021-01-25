@@ -27,8 +27,8 @@ def air_control(a):
 def play_control():
     # a=open('result.txt')
     # result=[]
-    for line in a.readline():
-        result.append(line)
+    # for line in a.readline():
+    #     result.append(line)
     for i in range(0,len(result)):
         if(result[i]=='N'):
             continue
