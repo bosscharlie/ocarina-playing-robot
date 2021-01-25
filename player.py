@@ -221,7 +221,6 @@ class player:
     def choose_power(self,power,t):
         self.set_valve(power)
         # time.sleep((60 / self.BPM) * t * 1)
-        print(power)
         time.sleep(t)
         # self.set_valve(1850)
 

@@ -10,6 +10,7 @@ def air_control():
     f = open("littleStar_air.txt","r")
     line = f.readline()
     while(line):
+<<<<<<< HEAD
         print(line)
         a = line.split(" ")
         #time.sleep(float(a[1]))
@@ -38,3 +39,4 @@ if __name__ == '__main__':
 
     while 1:
         pass
+
