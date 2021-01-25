@@ -10,7 +10,6 @@ def air_control():
     f = open("littleStar_air.txt","r")
     line = f.readline()
     while(line):
-<<<<<<< HEAD
         print(line)
         a = line.split(" ")
         #time.sleep(float(a[1]))
@@ -30,13 +29,26 @@ def play_control():
         myplayer.play_sound(result[i],60/(fundamental.bpm*4))
 
 if __name__ == '__main__':
+    for i in range(1000):
+        myplayer.set_separate(True)
+        print("true")
+        time.sleep(1)
+        myplayer.set_separate(False)
+        print("false")
+        time.sleep(1)
+    myplayer.set_separate(True)
+    print("true")
+    time.sleep(0.01)
+    myplayer.set_separate(False)
+    print("false")
+    time.sleep(0.01)
     # 创建两个线程
     try:
         _thread.start_new_thread(play_control, ())
+        myplayer.set_separate(True)
         _thread.start_new_thread(air_control, ())
     except:
         print("Error: 无法启动线程")
 
     while 1:
         pass
-
