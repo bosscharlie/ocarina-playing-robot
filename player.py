@@ -4,11 +4,13 @@ class player:
     ser_left=''
     ser_valve=''
     ser_right=''
+    ser_separate=''
     BPM=''
     hand_id=''
-    def __init__(self,left_num,right_num,valve_num,BPM,hand_id):
+    def __init__(self,left_num,right_num,valve_num,separate_num,BPM,hand_id):
         self.ser_left=serial.Serial(left_num,115200)
         self.ser_valve=serial.Serial(valve_num,921600)
+        self.ser_separate=serial.Serial(separate_num,9600)
         self.ser_right=serial.Serial(right_num,115200)
         self.ser_left.isOpen()
         self.ser_valve.isOpen()
@@ -105,6 +107,7 @@ class player:
         ser.write(putdata)
         getdata = ser.read(9)
 
+
     def setspeed(self,ser, speed1, speed2, speed3, speed4, speed5, speed6):
         global hand_id
         if speed1 < 0 or speed1 > 1000:
@@ -179,6 +182,14 @@ class player:
             putdata = putdata + self.num2str(b[i - 1])
         self.ser_valve.write(putdata)
 
+    def set_separate(self,separate):
+        putdata = b''
+        b = 0x00
+        if separate == True:
+            b = 0x01
+        putdata = putdata + self.num2str(b)
+        self.ser_separate.write(putdata)
+
     def choosepose(self,l):
 
         if l == 'C':
@@ -220,8 +231,9 @@ class player:
 
     def choose_power(self,power,t):
         self.set_valve(power)
-        time.sleep((60 / self.BPM) * t * 1)
-        self.set_valve(1850)
+        # time.sleep((60 / self.BPM) * t * 1)
+        time.sleep(t)
+        # self.set_valve(1850)
 
     def play_sound(self,key,t):
         self.choosepose(key)
