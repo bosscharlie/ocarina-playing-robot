@@ -4,9 +4,11 @@ import _thread
 import time
 from removeNoise import start,stand,intensity
 
-myplayer=player('COM3','COM9','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
 Sampling_interval_time = 0.1    #表示力度采样的时间间隔
 standard_value_num = 700
+time_a = 0
+time_b = 0
 myplayer.init()
 fundamental.preprocessing()
 result=fundamental.sampling()
@@ -19,16 +21,18 @@ def air_control(a):
             myplayer.set_separate(False)
             myplayer.choose_power(max, (Sampling_interval_time) / 2)
             time.sleep(Sampling_interval_time/ 2)
+            time_a += Sampling_interval_time
         else:
             myplayer.set_separate(True)
             myplayer.choose_power(1850 - int(a[i]),(Sampling_interval_time)/2)
             time.sleep(Sampling_interval_time/2)
+            time_a += Sampling_interval_time
 
 def play_control():
     # a=open('result.txt')
     # result=[]
     # for line in a.readline():
-    #     result.append(line)
+        # result.append(line)
     for i in range(0,len(result)):
         if(result[i]=='N'):
             continue
