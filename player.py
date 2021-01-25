@@ -230,4 +230,4 @@ class player:
         time.sleep((60/self.BPM)*t*1)
 
     def stop(self,t):
-        time.sleep((60/BPM)*t)
+        time.sleep((60/self.BPM)*t)
