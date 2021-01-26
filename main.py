@@ -1,18 +1,18 @@
 from player import player
 import fundamental
-# import _thread
-# import time
-# from removeNoise import start,stand,intensity
+import _thread
+import time
+from removeNoise import start,stand,intensity
 
-# myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
-# Sampling_interval_time = 0.1    #表示力度采样的时间间隔
-# standard_value_num = 700
-# time_a = 0
-# time_b = 0
-# myplayer.init()
+myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+Sampling_interval_time = 0.1    #表示力度采样的时间间隔
+standard_value_num = 700
+time_a = 0
+time_b = 0
+myplayer.init()
 fundamental.preprocessing()
 result=fundamental.sampling()
-# start()
+start()
 
 def air_control(a):
     for i in range(len(a)):
@@ -36,25 +36,17 @@ def play_control():
     for i in range(0,len(result)):
         if(result[i]=='N'):
             myplayer.stop(60/(fundamental.bpm*4))
+            continue
         myplayer.play_sound(result[i],60/(fundamental.bpm*4))
 
-# if __name__ == '__main__':
-#     # 创建两个线程
-#     try:
-#         print("nmh")
-#         _thread.start_new_thread(play_control, ())
-#         _thread.start_new_thread(air_control, (intensity,))
-#     except:
-#         print("Error: 无法启动线程")
-#
-#     while 1:
-#         pass
-time=0
-for i in range(0,len(result)):
-    if(result[i]=='N'):
-        #myplayer.stop(60/(fundamental.bpm*4))
-        time=time+60/(fundamental.bpm*4)
-        continue
-    # myplayer.play_sound(result[i],60/(fundamental.bpm*4))
-    time = time + 60 / (fundamental.bpm * 4)
-print(time)
+if __name__ == '__main__':
+    # 创建两个线程
+    try:
+        print("nmh")
+        _thread.start_new_thread(play_control, ())
+        _thread.start_new_thread(air_control, (intensity,))
+    except:
+        print("Error: 无法启动线程")
+
+    while 1:
+        pass
