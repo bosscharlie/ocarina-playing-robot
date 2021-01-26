@@ -96,7 +96,6 @@ def getperiod(input,result):
     for i in range(0,len(input)-1):
         if (input[i]<input[i+1]):
             if input[i]<s:
-                print(i)
                 result.append(getkey(i))
                 return
     result.append('N')
@@ -120,7 +119,6 @@ def sampling():
         # plt.show()
         # plt.figure()
         now=now+60/(bpm*4)
-        print(result)
     f= open('result.txt','w')
     f.writelines(result)
     f.close()

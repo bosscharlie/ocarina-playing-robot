@@ -4,6 +4,7 @@ import _thread
 import time
 from removeNoise import start,stand,intensity
 
+audio_record('sound4.wav',5)
 myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
 Sampling_interval_time = 0.1    #表示力度采样的时间间隔
 standard_value_num = 700
