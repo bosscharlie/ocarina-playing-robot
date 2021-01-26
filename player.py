@@ -182,13 +182,19 @@ class player:
             putdata = putdata + self.num2str(b[i - 1])
         self.ser_valve.write(putdata)
 
-    def set_separate(self,separate):
+    def set_separate(self,separate,t):
+        start = time.time()
         putdata = b''
         b = 0x00
         if separate == True:
             b = 0x01
         putdata = putdata + self.num2str(b)
         self.ser_separate.write(putdata)
+        end = time.time()
+        if (t - (end - start)) > 0:
+            return (t - (end - start))
+        else:
+            return 0.
 
     def choosepose(self,l):
 
@@ -230,15 +236,19 @@ class player:
             # self.set_valve(1850)
 
     def choose_power(self,power,t):
+        starttime = time.time()
         self.set_valve(power)
-        print(power)
-        # time.sleep((60 / self.BPM) * t * 1)
-        time.sleep(t)
+        endtime = time.time()
+        if (t - (endtime - starttime)) >= 0:
+            time.sleep(t - (endtime - starttime))
         # self.set_valve(1850)
 
     def play_sound(self,key,t):
+        starttime = time.time()
         self.choosepose(key)
-        time.sleep(t)
+        endtime = time.time()
+        if (t - (endtime - starttime)) >= 0:
+            time.sleep(t - (endtime - starttime))
 
     def stop(self,t):
         time.sleep(t)
