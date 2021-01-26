@@ -3,6 +3,7 @@ import fundamental
 import _thread
 import time
 from removeNoise import start,stand,intensity
+from transcribe import audio_record
 
 audio_record('sound4.wav',5)
 myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
