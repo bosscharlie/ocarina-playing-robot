@@ -89,7 +89,7 @@ def getkey(period):
     elif (period >= 33 and period <= 34 ):
         return 'B'
     elif (period >= 29 and period <= 31):
-        return 'HC'
+        return 'H'
     else:
         return 'N'
 def getperiod(input,result):

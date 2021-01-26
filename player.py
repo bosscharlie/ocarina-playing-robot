@@ -220,11 +220,11 @@ class player:
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
             self.setangle(self.ser_right, 100, 880, 650, 800, 730, 60)
             # self.set_valve(1600)
-        elif l == 'HC':
+        elif l == 'H':
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
             self.setangle(self.ser_right, 100, 880, 800, 800, 730, 60)
             # self.set_valve(1500)
-        elif l == 'HD':
+        elif l == 'K':
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
             self.setangle(self.ser_right, 100, 880, 800, 800, 900, 60)
             # self.set_valve(1850)
