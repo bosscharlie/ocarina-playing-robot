@@ -14,7 +14,9 @@ bpm=90
 s=0.1
 #去掉音频前面无声部分
 def preprocessing():
-    wave,freq=librosa.load('sound4.wav',sr=32000)
+    wave,freq=librosa.load('sound2.wav',sr=32000)
+    print(wave)
+    print(freq)
     now=0
     while(wave[now]==0):
         now=now+1
@@ -97,8 +99,11 @@ def getperiod(input,result):
         if (input[i]<input[i+1]):
             if input[i]<s:
                 result.append(getkey(i))
+                print(i)
+                print(result)
                 return
     result.append('N')
+    print(result)
 
 #进行基频提取
 def sampling():

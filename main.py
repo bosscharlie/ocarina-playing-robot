@@ -5,8 +5,9 @@ import time
 from removeNoise import start,stand,intensity
 from transcribe import audio_record
 
-audio_record('sound4.wav',5)
+# audio_record('sound4.wav',5)
 myplayer=player('COM9','COM3','COM4','COM10',90,1)  #par 串口地址（左手、右手、控制阀）、BPM、id标号
+t = myplayer.set_separate(False,1)
 Sampling_interval_time = 0.1   #表示力度采样的时间间隔
 standard_value_num = 700
 # myplayer.init()
@@ -24,8 +25,8 @@ def air_control(a):
             max = 1850 - int(a[i])
             # starttime = time.time()
             t = myplayer.set_separate(False,Sampling_interval_time)
-            myplayer.choose_power(max,t)
-            # time.sleep((Sampling_interval_time)/ 2)
+            #myplayer.choose_power(max,t)
+            time.sleep(t)
             # endtime = time.time()
             # print("cnm",endtime - starttime)
             totaltime += Sampling_interval_time
@@ -38,6 +39,7 @@ def air_control(a):
             # time.sleep((Sampling_interval_time - 0.01)/2)
             totaltime += Sampling_interval_time
     endtime = time.time()
+    t = myplayer.set_separate(False,1)
     print(totaltime)
 
 def play_control():
@@ -56,11 +58,14 @@ def play_control():
 
 if __name__ == '__main__':
     print("nmsl")
+
+    t = myplayer.set_separate(False,1)
     # 创建两个线程
     try:
         print("nmh")
         _thread.start_new_thread(play_control, ())
         _thread.start_new_thread(air_control, (intensity,))
+        t = myplayer.set_separate(False,1)
     except:
         print("Error: 无法启动线程")
 

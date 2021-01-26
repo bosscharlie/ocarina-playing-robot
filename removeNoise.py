@@ -13,6 +13,7 @@ import _thread
 from scipy.io import wavfile
 import noisereduce as nr
 from player import player
+import librosa
 
 # myplayer=player('COM3','COM9','COM4','COM10',90,1)
 #fundamental.preprocessing()
@@ -49,7 +50,7 @@ def binarySearch(arr, l, r, x):
     x = abs(x)
     if r >= l:
         mid = int(l + (r - l) / 2)
-        if mid < 16:
+        if mid < 15:
             if float(arr[mid][0]) <= x and float(arr[mid + 1][0]) >= x:
                 return mid
             elif float(arr[mid][0]) > x:
@@ -57,7 +58,7 @@ def binarySearch(arr, l, r, x):
             elif float(arr[mid + 1][0]) < x:
                 return binarySearch(arr, mid + 1, r, x)
         else:
-            return 16
+            return 15
     else:
         return -1
 
@@ -73,15 +74,20 @@ def play_control():
         myplayer.play_sound(result[i],60/(fundamental.bpm*4))
 
 def start():
+    rate = 0
     load_form()
-    sound_data, sound_rate = sf.read("sound4.wav")
+    sound_data, sound_rate = librosa.load("sound2.wav",sr=16000)
+    print("soundrate:",len(sound_data))
+    print(sound_data)
+    print(sound_rate)
     sound_data.shape = -1
-    noise_data, noise_rate = sf.read("noise.wav")
+    print("cnmb:",len(sound_data))
+    noise_data, noise_rate = librosa.load("noise.wav",sr=16000)
     noise_data.shape = -1
     after = nr.reduce_noise(audio_clip=sound_data, noise_clip=noise_data)
     plt.plot(np.arange(len(after)), after, 'r')
     plt.show()
-    Sampling_interval = Sampling_interval_time / 1 * 100000
+    Sampling_interval = Sampling_interval_time * sound_rate
     now_interval = 0
     while now_interval < len(after):
         now_interval_intensity = 0
@@ -93,14 +99,18 @@ def start():
         p = binarySearch(stand, 0, int(len(stand) - 1), float(now_interval_intensity))
         intensity.append(stand[p][1])
         now_interval += Sampling_interval
+        print("now_interval:", now_interval)
+    print("len:",len(intensity))
 
 if __name__ == '__main__':
     load_form()
-    sound_data, sound_rate = sf.read("sound2.wav")
+    sound_data, sound_rate = sf.read("sound4.wav")
     sound_data.shape = -1
+    print(len(sound_data))
     noise_data, noise_rate = sf.read("sound.wav")
     noise_data.shape = -1
     after = nr.reduce_noise(audio_clip=sound_data, noise_clip=noise_data)
+    print(len(after))
     plt.plot(np.arange(len(after)), after, 'r')
     plt.show()
     Sampling_interval = Sampling_interval_time / 1 * 100000
@@ -117,6 +127,7 @@ if __name__ == '__main__':
         p = binarySearch(stand, 0 ,int(len(stand)-1),float(now_interval_intensity))
         intensity.append(stand[p][1])
         now_interval += Sampling_interval
+        print("now_interval:",now_interval)
 
     myplayer.play_sound('C',1)
     myplayer.set_separate(False)
