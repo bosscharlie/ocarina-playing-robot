@@ -1,7 +1,8 @@
-from main import myplayer
 from player import player
+# from main import myplayer
 
 if __name__ == '__main__':
+    myplayer = player('COM9', 'COM3', 'COM4', 'COM10', 90, 1)
     myplayer.set_separate(True)
     myplayer.play_sound('D', 1)
     Sampling_interval_time = 10

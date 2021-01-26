@@ -28,7 +28,7 @@ if __name__ == '__main__':
     with open("form.txt", "w") as f:
         now_position = 0
         while now_time < len(after):
-            for i in range(int(now_time - 50 / 2), int(now_time + 50 / 2)):
+            for i in range(int(now_time - 200 / 2), int(now_time + 200 / 2)):
                 if i >= len(after):
                     break
                 if (after[i] > max):

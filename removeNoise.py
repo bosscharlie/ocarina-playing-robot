@@ -74,7 +74,7 @@ def play_control():
 
 def start():
     load_form()
-    sound_data, sound_rate = sf.read("sound2.wav")
+    sound_data, sound_rate = sf.read("sound4.wav")
     sound_data.shape = -1
     noise_data, noise_rate = sf.read("noise.wav")
     noise_data.shape = -1
@@ -85,7 +85,7 @@ def start():
     now_interval = 0
     while now_interval < len(after):
         now_interval_intensity = 0
-        for i in range(int(now_interval - 100 / 2), int(now_interval + 100 / 2)):
+        for i in range(int(now_interval - Sampling_interval / 2), int(now_interval + Sampling_interval / 2)):
             if i >= len(after):
                 break
             if (after[i] > now_interval_intensity):
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     load_form()
     sound_data, sound_rate = sf.read("sound2.wav")
     sound_data.shape = -1
-    noise_data, noise_rate = sf.read("noise.wav")
+    noise_data, noise_rate = sf.read("sound.wav")
     noise_data.shape = -1
     after = nr.reduce_noise(audio_clip=sound_data, noise_clip=noise_data)
     plt.plot(np.arange(len(after)), after, 'r')
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     valve_num = []
     while now_interval < len(after):
         now_interval_intensity = 0
-        for i in range(int(now_interval - 100 / 2), int(now_interval + 100 / 2)):
+        for i in range(int(now_interval - 5000 / 2), int(now_interval + 5000 / 2)):
             if i >= len(after):
                 break
             if (after[i] > now_interval_intensity):
