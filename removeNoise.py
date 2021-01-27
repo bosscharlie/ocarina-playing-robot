@@ -76,12 +76,11 @@ def play_control():
 def start():
     rate = 0
     load_form()
-    sound_data, sound_rate = librosa.load("sound2.wav",sr=16000)
+    sound_data, sound_rate = librosa.load("sound4.wav",sr=16000)
     print("soundrate:",len(sound_data))
     print(sound_data)
     print(sound_rate)
     sound_data.shape = -1
-    print("cnmb:",len(sound_data))
     noise_data, noise_rate = librosa.load("noise.wav",sr=16000)
     noise_data.shape = -1
     after = nr.reduce_noise(audio_clip=sound_data, noise_clip=noise_data)
@@ -91,7 +90,7 @@ def start():
     now_interval = 0
     while now_interval < len(after):
         now_interval_intensity = 0
-        for i in range(int(now_interval - Sampling_interval / 2), int(now_interval + Sampling_interval / 2)):
+        for i in range(int(now_interval) , int(now_interval + Sampling_interval -1)):
             if i >= len(after):
                 break
             if (after[i] > now_interval_intensity):
@@ -99,7 +98,6 @@ def start():
         p = binarySearch(stand, 0, int(len(stand) - 1), float(now_interval_intensity))
         intensity.append(stand[p][1])
         now_interval += Sampling_interval
-        print("now_interval:", now_interval)
     print("len:",len(intensity))
 
 if __name__ == '__main__':
@@ -127,7 +125,7 @@ if __name__ == '__main__':
         p = binarySearch(stand, 0 ,int(len(stand)-1),float(now_interval_intensity))
         intensity.append(stand[p][1])
         now_interval += Sampling_interval
-        print("now_interval:",now_interval)
+        # print("now_interval:",now_interval)
 
     myplayer.play_sound('C',1)
     myplayer.set_separate(False)
@@ -137,8 +135,8 @@ if __name__ == '__main__':
         _thread.start_new_thread(play_control, ())
     except:
         print("Error: 无法启动线程")
-    while 1:
-        pass
+    # while 1:
+    #     pass
     # for each in valve_num:
     #     # myplayer.choose_power(each,Sampling_interval_time/2)
     #     print(each)

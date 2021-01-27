@@ -14,7 +14,7 @@ bpm=90
 s=0.1
 #去掉音频前面无声部分
 def preprocessing():
-    wave,freq=librosa.load('sound2.wav',sr=32000)
+    wave,freq=librosa.load('sound4.wav',sr=32000)
     print(wave)
     print(freq)
     now=0
@@ -76,13 +76,13 @@ def getkey(period):
     #     return 'HC'
     # else:
     #     return 'N'
-    if (period >= 56 and period <= 60):    #陶笛
+    if (period >= 54 and period <= 60):    #陶笛
         return 'C'
-    elif (period >= 50 and period <= 55):
+    elif (period >= 50 and period <= 53):
         return 'D'
-    elif (period >= 46 and period <= 49):
+    elif (period >= 45 and period <= 49):
         return 'E'
-    elif (period >= 42 and period <= 45):
+    elif (period >= 42 and period <= 44):
         return 'F'
     elif (period >= 38 and period <= 41):
         return 'G'
@@ -99,11 +99,11 @@ def getperiod(input,result):
         if (input[i]<input[i+1]):
             if input[i]<s:
                 result.append(getkey(i))
-                print(i)
-                print(result)
+                # print(i)
+                # print(result)
                 return
     result.append('N')
-    print(result)
+    # print(result)
 
 #进行基频提取
 def sampling():

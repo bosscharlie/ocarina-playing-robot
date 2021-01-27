@@ -197,35 +197,35 @@ class player:
 
         if l == 'C':
             self.setangle(self.ser_left, 100, 880, 650, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 650, 630, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 650, 630, 710, 60)
             # self.set_valve(1730)
         elif l == 'D':
             self.setangle(self.ser_left, 100, 880, 650, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 800, 630, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 800, 630, 710, 60)
             # self.set_valve(1705)
         elif l == 'E':
             self.setangle(self.ser_left, 100, 880, 650, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 650, 800, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 650, 800, 710, 60)
             # self.set_valve(1695)
         elif l == 'F':
             self.setangle(self.ser_left, 100, 880, 650, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 800, 800, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 800, 800, 710, 60)
             # self.set_valve(1645)
         elif l == 'G':
             self.setangle(self.ser_left, 100, 880, 800, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 800, 630, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 800, 630, 710, 60)
             # self.set_valve(1675)
         elif l == 'A':
             self.setangle(self.ser_left, 100, 880, 800, 650, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 800, 800, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 800, 800, 710, 60)
             # self.set_valve(1660)
         elif l == 'B':
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 650, 800, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 650, 800, 710, 60)
             # self.set_valve(1600)
         elif l == 'H':
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
-            self.setangle(self.ser_right, 100, 880, 800, 800, 730, 60)
+            self.setangle(self.ser_right, 100, 880, 800, 800, 710, 60)
             # self.set_valve(1500)
         elif l == 'K':
             self.setangle(self.ser_left, 100, 880, 800, 800, 730, 120)
@@ -236,7 +236,7 @@ class player:
         starttime = time.time()
         self.set_valve(power)
         endtime = time.time()
-        time.sleep(t - (endtime - starttime))
+        time.sleep(max(t - (endtime - starttime),0))
             # print(t - (endtime - starttime))
         # self.set_valve(1850)
 
@@ -245,7 +245,8 @@ class player:
         self.choosepose(key)
         endtime = time.time()
         # print(t,endtime - starttime)
-        time.sleep(t - (endtime - starttime))
+        # time.sleep(t - (endtime - starttime))
+        time.sleep(max((t - (endtime - starttime)),0))
 
     def stop(self,t):
         time.sleep(t)
